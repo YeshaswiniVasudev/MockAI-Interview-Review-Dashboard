@@ -1,0 +1,38 @@
+circle {
+    transition: all 1s ease-in-out;
+    transform: rotate(93deg);
+    transform-origin: 50% 50%;
+  }
+  
+ 
+  
+  .progress-circle {
+    justify-content: center;
+    align-items: center;
+  }
+  
+ 
+
+
+  .play-pause-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+
+
+.progress-circle svg:hover {
+    transform: scale(1.05);
+}
+
+
+.icon-fill {
+  fill: linear-gradient(-45deg, #12c2e9, #c471ed, #f64f59);
+   /* Light blue */
+}
