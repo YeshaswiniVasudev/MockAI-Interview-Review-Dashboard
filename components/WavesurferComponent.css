@@ -3,3 +3,16 @@
     width: 600px;
     height: 150px;
 }
+
+.waveform-time-display {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px; 
+  }
+  
+  .current-time, .total-duration {
+    color: #fff; 
+    font-weight: bold;
+  }
+
+  

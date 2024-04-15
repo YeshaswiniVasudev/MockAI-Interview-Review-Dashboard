@@ -14,7 +14,8 @@ const WaveSurferComponent = ({ audioUrl }) => {
             container: waveformRef.current,
             waveColor: 'rgb(200, 0, 200)',
             progressColor: 'rgb(100, 0, 100)',
-            cursorWidth: 1,
+            cursorWidth: 2,
+            cursorColor: 'white',
             plugins: [
                 RegionsPlugin.create()
             ],
