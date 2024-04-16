@@ -124,10 +124,10 @@ const [duration, setDuration] = useState(0);
         });
       });
 
-      wavesurfer.on("audioprocess", () => {
-        if (wavesurfer.isPlaying()) {
-          setCurrentTime(wavesurfer.getCurrentTime());
-        }
+      wavesurfer.on('audioprocess', () => {
+        const currentTime = wavesurfer.getCurrentTime();
+        console.log('Current Time: ', currentTime); // Log the current time to debug
+        setCurrentTime(currentTime);
       });
 
       wavesurferRef.current = wavesurfer;
@@ -181,8 +181,10 @@ const [duration, setDuration] = useState(0);
       <div ref={waveformRef} className="waveform-container">
 
       <div className="waveform-time-display">
-  <span className="current-time">{formatTime(currentTime)}</span>
-  <span className="total-duration">{formatTime(duration)}</span>
+
+  <span  >{formatTime(currentTime)}</span>
+  <span >{formatTime(duration)}</span>
+
 </div>
       </div>
     

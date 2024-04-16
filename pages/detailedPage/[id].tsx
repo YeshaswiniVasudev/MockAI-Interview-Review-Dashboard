@@ -1,7 +1,8 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import WaveSurferComponent from '@/components/waveSurferComponent';
+// import WaveSurferComponent from '@/components/waveSurferComponent';
 import RegionsComponent from '@/components/RegionsComponent';
+import AudioTranscriber from '@/components/AudioTranscriber';
 
 interface Audio {
   title: string;
@@ -40,8 +41,11 @@ const AudioPage = () => {
         Your browser does not support the audio element.
       </audio> */}
                  
-      <WaveSurferComponent audioUrl={audio.path} />
+      {/* <WaveSurferComponent audioUrl={audio.path} /> */}
       <RegionsComponent audioPath={audio.path} />
+      <br/><br/>
+      {/* <AudioTranscriber audioPath={audio.path} /> */}
+      
     </div>
   );
 };
