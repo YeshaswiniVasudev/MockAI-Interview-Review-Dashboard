@@ -2,6 +2,10 @@
 import { Button } from "@/components/ui/button"
 import * as React from "react"
 import { Input } from "@/components/ui/input"
+import styles from './data-table.module.css';
+
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+
 
 import {
   ColumnDef,
@@ -57,17 +61,24 @@ export function DataTable<TData, TValue>({
   return (
     <div>
         <div className="flex items-center py-4">
-        <Input
+         {/* <div className={styles['filter-title-class']}>
+         <div className={styles['shadow']}></div> */}
+         
+          <Input
           placeholder="Filter title..."
           value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
             table.getColumn("title")?.setFilterValue(event.target.value)
           }
-          className="max-w-sm"
+          // className={`max-w-sm ${styles['filter-title-class']}`}
+          className={`max-w-sm ${styles['input-class']}`}
         />
-      </div>
+        {/* </div> */}
+        
+      </div><br></br>
     <div className="rounded-md border">
-      <Table>
+    <div className={styles.tableWrapper}>
+      <Table className={styles.table}>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
@@ -109,23 +120,28 @@ export function DataTable<TData, TValue>({
           )}
         </TableBody>
       </Table>
+      </div>
     </div>
     <div className="flex items-center justify-end space-x-2 py-4">
         <Button
+        className={styles.button}
           variant="outline"
           size="sm"
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
         >
-          Previous
+           <FiChevronLeft />
         </Button>
+
+    
         <Button
+        className={styles.button}
           variant="outline"
           size="sm"
           onClick={() => table.nextPage()}
           disabled={!table.getCanNextPage()}
         >
-          Next
+          <FiChevronRight />
         </Button>
       </div>
     </div>

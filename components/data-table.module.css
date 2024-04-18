@@ -1,0 +1,112 @@
+/* .filter-title-class input {
+    background: linear-gradient(#dbdae1,#a3aaba);
+    box-shadow: 5px 5px 5px rgba(0,0,0,0.1),
+    15px 15px 15px rgba(0,0,0,0.1),
+    20px 20px 20px rgba(0,0,0,0.1),
+    30px 30px 30px rgba(0,0,0,0.1),
+    inset 1px 1px 1px #fff;
+    z-index: 2;
+  }
+
+  .filter-title-class::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 10px;
+    height: 100%;
+    background: linear-gradient(#fff, #fff, #e3e3e3);
+   z-index: 3;
+    filter: blur(1px);
+  }
+  .filter-title-class::after{
+    content: '';
+    position: absolute;
+    top: 0;
+    right: -1px;
+    width: 10px;
+    height: 100%;
+    background: #9d9d9d;
+   z-index: 2;
+    filter: blur(1px);
+  }
+
+  .filter-title-class{
+    position : relative;
+    width: 300px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+  }
+
+  .shadow{
+    position: absolute;
+    top: 0;
+
+    width: calc(84% + 50px);
+    height: 150px;
+    background: linear-gradient(180deg,rgba(0,0,0,0.1),
+    transparent,transparent);
+    transform-origin: top;
+    transform: skew(45deg);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+
+  .shadow::before{
+    content: '';
+    position: absolute;
+  
+  
+    width: 50px;
+    height: 50px;
+
+   z-index: 1;
+  } */
+
+
+  .input-class:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px #12c2e9;
+  }
+
+  .input-class{
+    box-shadow: 0 0 0 2px #12c2e9;
+  }
+
+  .tableWrapper {
+  position: relative;
+  padding: 2px; /* This will create a 2px gap around the table */
+  background: linear-gradient(to right, #12c2e9, #c471ed, #f64f59); /* Your gradient */
+  border-radius: 10px; /* Adjust this value to match your table's border radius + 2px */
+  overflow: hidden; /* This will ensure the table doesn't overflow the wrapper */
+}
+
+.table {
+  background: white; /* Or whatever your table's background color is */
+  border-radius: 8px; /* Adjust this value to match your desired border radius */
+  /* Other table styles... */
+}
+
+.button {
+    padding: 10px 20px;
+    font-size: 24px;
+    color: red;
+    background-color: whitesmoke;
+    border:none;
+    border-radius: 5px;
+    margin: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+.button:hover {
+    background-color: pink;
+  }
+  
+.button:active {
+    background-color: #003d80;
+  }

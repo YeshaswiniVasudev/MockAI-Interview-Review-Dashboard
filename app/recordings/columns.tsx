@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Button } from "@/components/ui/button";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import AudioPlayer from "@/components/audioPlayer"; 
+import styles from './Page.module.css'; 
 
 export type recording = {
   id: number;
@@ -79,8 +80,10 @@ export const columns: ColumnDef<recording>[] = [
     id: "actions",
     cell: ({ row }) => (
         <Link href={`/detailedPage/${row.original.id}`}>
-        <Button >Go to Details</Button>
+        <Button className={styles['button-33']}>Review Interview</Button>
       </Link>
     ),
   },
 ];
+
+
