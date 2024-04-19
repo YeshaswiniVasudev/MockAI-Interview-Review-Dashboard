@@ -120,6 +120,20 @@ body {
   top: 1vh;
 }
 
+.innerRightSection2 {
+  /* justify-content: center; */
+  padding: 20px;
+  /* padding-top: 60px */
+  color: grey;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  height: 41vh;
+  width: 32vw;
+  left: 1vw;
+  top: 1vh;
+}
+
 /* Styling the live transcription section of the layout */
 .liveTranscription {
   margin-top: 2vh;
@@ -154,4 +168,26 @@ body {
 .dropdown-menu-item:hover {
   color: blue;
   cursor: pointer;
+}
+
+.innerRightSection {
+  /* position: relative;
+  z-index: 2;
+  height: 41vh;
+  width: 32vw;
+  left: 1vw;
+  top: 1vh; */
+width: 100%;
+padding-right: 2vw;
+height: 29vh;
+text-align: center;
+  font-weight: 600;
+  overflow-y: scroll;
+  max-height: 300px;
+  scrollbar-width: none; /* for Firefox */
+  -ms-overflow-style: none;  /* for Internet Explorer and Edge */
+}
+
+.innerRightSection::-webkit-scrollbar {
+  display: none; /* for Chrome, Safari, and Opera */
 }

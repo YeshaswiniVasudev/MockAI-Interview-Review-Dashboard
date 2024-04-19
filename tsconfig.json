@@ -24,7 +24,7 @@
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/**/*",
-  "types/**/*"],
+  "types/**/*", "components/ui/PlayBackSpeedIcon.js"],
   "exclude": ["node_modules"]
 }
 

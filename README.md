@@ -8,7 +8,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-What things you need to install the software and how to install them. For example:
+Things you need, to install the software.
 
 - Node.js
 - npm
@@ -83,7 +83,7 @@ Thank you for your indirect contributions through shared knowledge and inspirati
 
 ## Explore More
 
-Dive into our [In-Depth Documentation](./detailed-documentation.md) for a comprehensive exploration of the rich features and innovative components of our project. This detailed guide unveils the intricate design choices, hidden gems, and technical brilliance that might otherwise go unnoticed, offering you a closer look at the ingenuity behind our system. Whether you're a potential collaborator or a curious observer, these insights will enhance your understanding of the project's capabilities and its subtle yet powerful functionalities.
+Dive into my [In-Depth Documentation](./detailed-documentation.md) for a comprehensive exploration of the rich features and innovative components of this project. This detailed guide unveils the intricate design choices, hidden gems, and technical brilliance that might otherwise go unnoticed, offering you a closer look at the ingenuity behind the system. These insights will enhance your understanding of the project's capabilities and its subtle yet powerful functionalities.
 
 
 ## Deploy on Vercel

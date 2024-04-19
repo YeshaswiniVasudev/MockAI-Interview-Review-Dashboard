@@ -46,6 +46,34 @@ const RegionsComponent = ({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedSpeed, setSelectedSpeed] = useState(1);
   const [transcriptData, setTranscriptData] = useState([]);
+  const transcriptRefs = useRef<Array<React.RefObject<HTMLParagraphElement>>>(
+    []
+  );
+
+  useEffect(() => {
+    transcriptRefs.current = transcriptData.map(
+      (_, index) => transcriptRefs.current[index] || React.createRef()
+    );
+  }, [transcriptData.length]);
+
+  useEffect(() => {
+    if (currentIndex >= 0 && transcriptRefs.current[currentIndex]?.current) {
+      const scrollContainer = document.querySelector(
+        ".innerRightSection"
+      ) as HTMLDivElement;
+      const activeElement = transcriptRefs.current[currentIndex].current;
+
+      if (scrollContainer && activeElement) {
+        const containerHeight = scrollContainer.offsetHeight;
+        const elementTop = activeElement.offsetTop;
+        const elementHeight = activeElement.offsetHeight;
+
+        // Calculate the position to scroll to, to bring the active element into view at the center
+        const scrollTo = elementTop + elementHeight / 2 - containerHeight / 2;
+        scrollContainer.scrollTop = scrollTo;
+      }
+    }
+  }, [currentIndex]);
 
   // Load the transcript data when the component mounts
   useEffect(() => {
@@ -380,16 +408,28 @@ const RegionsComponent = ({
             </div>
           </div>
           <section className="liveTranscription">
-            <div className="innerRightSection">
-              <h1>Subtitles</h1>
-              <p>{transcriptText}</p>
+            <div
+              className="innerRightSection"
+              style={{ overflowY: "scroll", maxHeight: "300px" }}
+            >
+              {transcriptData.map(
+                (segment: { text: string }, index: number) => (
+                  <p
+                    key={index}
+                    ref={transcriptRefs.current[index]}
+                    style={{ color: currentIndex === index ? "purple" : "lightgrey" }}
+                  >
+                    {segment.text}
+                  </p>
+                )
+              )}
             </div>
           </section>
         </div>
 
         <div className="rightSection">
-          <div className="innerRightSection">
-            <p>The ai suggestions placeholder</p>
+          <div className="innerRightSection2">
+            <p>The AI suggestions placeholder</p>
           </div>
         </div>
       </div>
