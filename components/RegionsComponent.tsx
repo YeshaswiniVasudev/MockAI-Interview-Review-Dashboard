@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import Region from "wavesurfer.js";
 import { ChangeEvent } from "react";
-// import { transcriptData } from '../public/transcripts/TimeTranscript';
+
 
 const RegionsComponent = ({
   audioPath,
@@ -41,10 +41,9 @@ const RegionsComponent = ({
   const speeds = [0.25, 0.5, 1, 2, 4];
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
-  const [isSelectOpen, setIsSelectOpen] = useState(false);
   const [transcriptText, setTranscriptText] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
-
+  const [selectedSpeed, setSelectedSpeed] = useState(1); // Change this line
   const [transcriptData, setTranscriptData] = useState([]);
 
   useEffect(() => {
@@ -142,12 +141,7 @@ const RegionsComponent = ({
         cursorColor: "black",
         plugins: [
           TimelinePlugin.create(),
-          // Minimap.create({
-          //     height: 20,
-          //     waveColor: '#ddd',
-          //     progressColor: '#999',
-          //     // the Minimap takes all the same options as the WaveSurfer itself
-          //   }),
+        
           Hover.create({
             lineColor: "#ff0000",
             lineWidth: 2,
@@ -166,12 +160,7 @@ const RegionsComponent = ({
         console.log("WaveSurfer is ready");
 
         setDuration(wavesurfer.getDuration());
-        // Ensure looping is handled correctly
-        // region.on('out', () => {
-        //   if (loop && isPlaying) {
-        //     wavesurfer.play(region.start);
-        //   }
-        // });
+     
 
         wsRegions.on("region-updated", (region: typeof Region) => {
           console.log("Updated region", region);
@@ -244,17 +233,15 @@ const RegionsComponent = ({
   const handleVolumeChange = (event: ChangeEvent<HTMLInputElement>) => {
     const newVolume = parseFloat(event.target.value);
     setVolume(newVolume);
-    if (wavesurferRef.current) {
+   
       (wavesurferRef.current as typeof WaveSurfer).setVolume(newVolume);
-    }
+    
   };
 
-  const handleSpeedChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const newRateIndex = parseInt(event.target.value, 10);
-    const newRate = speeds[newRateIndex];
-    setPlaybackRate(newRate);
+  const handleSpeedChange = (speed:number) => {
+    setPlaybackRate(speed);
     if (wavesurferRef.current) {
-      (wavesurferRef.current as typeof WaveSurfer).setPlaybackRate(newRate);
+      (wavesurferRef.current as typeof WaveSurfer).setPlaybackRate(speed);
     }
   };
 
@@ -337,23 +324,7 @@ const RegionsComponent = ({
               </div>
 
               <div className="flex items-center">
-                {/* <div onClick={() => setIsSelectOpen(!isSelectOpen)}>
-                  <PlayBackSpeedIcon />
-                </div>
-                {isSelectOpen && (
-                  <select
-                    id="speedControl"
-                    defaultValue={2} // Default to index of 1 in the speeds array, which is normal speed
-                    onChange={handleSpeedChange}
-                    onBlur={() => setIsSelectOpen(false)}
-                  >
-                    {speeds.map((speed, index) => (
-                      <option value={index} key={index}>
-                        {speed}
-                      </option>
-                    ))}
-                  </select>
-                )} */}
+            
 
                 <DropdownMenu>
                   <DropdownMenuTrigger>
@@ -362,13 +333,22 @@ const RegionsComponent = ({
                   <DropdownMenuContent
                     style={{ width: "fit-content", background: "white" }}
                   >
+                    
                     {speeds.map((speed, index) => (
+                      <div
+                      className="dropdown-menu-item"
+                    >
                       <DropdownMenuItem
                         key={index}
-                        onSelect={() => handleSpeedChange}
+                        onSelect={() => {handleSpeedChange(speed)
+                          setSelectedSpeed(speed);} // Add this line
+                        }
+                        className="dropdown-menu-item"
+                        // style={{ cursor: 'pointer' }} // Add this line
                       >
-                        {speed}x
+                        {speed}x{selectedSpeed === speed && <span style={{ marginLeft: '10px' }}>✓</span>}
                       </DropdownMenuItem>
+                      </div>
                     ))}
                   </DropdownMenuContent>
                 </DropdownMenu>

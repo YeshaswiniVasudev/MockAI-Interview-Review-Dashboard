@@ -154,6 +154,13 @@ body {
     z-index: 1;
   }
 
-
+  .dropdown-menu-item {
+    cursor: pointer;
+  }
+  
+  .dropdown-menu-item:hover {
+    color: blue;
+    cursor: pointer;
+  }
 
 
