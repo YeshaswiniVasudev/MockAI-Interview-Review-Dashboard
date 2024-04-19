@@ -2,7 +2,6 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import RegionsComponent from "@/components/RegionsComponent";
-import AudioTranscriber from "@/components/AudioTranscriber";
 import "./style.css";
 import { HomeIcon } from "@heroicons/react/solid";
 
