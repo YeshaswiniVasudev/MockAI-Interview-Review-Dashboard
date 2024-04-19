@@ -19,9 +19,17 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import Region from "wavesurfer.js";
+import { ChangeEvent } from "react";
 // import { transcriptData } from '../public/transcripts/TimeTranscript';
 
-const RegionsComponent = ({ audioPath, transcriptPath }) => {
+const RegionsComponent = ({
+  audioPath,
+  transcriptPath,
+}: {
+  audioPath: string;
+  transcriptPath: string;
+}) => {
   const waveformRef = useRef(null);
   const wavesurferRef = useRef(null);
   const loopRef = useRef(true); // Use a ref to hold the loop state
@@ -34,7 +42,7 @@ const RegionsComponent = ({ audioPath, transcriptPath }) => {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [isSelectOpen, setIsSelectOpen] = useState(false);
-  const [transcriptText, setTranscriptText] = useState('');
+  const [transcriptText, setTranscriptText] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const [transcriptData, setTranscriptData] = useState([]);
@@ -53,39 +61,51 @@ const RegionsComponent = ({ audioPath, transcriptPath }) => {
   useEffect(() => {
     // This effect adjusts currentIndex based on the current time
     const updateIndex = () => {
-      const newIndex = transcriptData.findIndex(segment => currentTime < segment.start) - 1;
+      const newIndex =
+        transcriptData.findIndex(
+          (segment: { start: number; text: string }) =>
+            currentTime < segment.start
+        ) - 1;
       setCurrentIndex(newIndex >= 0 ? newIndex : 0);
-      setTranscriptText(transcriptData[currentIndex]?.text || "");
+      setTranscriptText(
+        (transcriptData[currentIndex] as { text: string })?.text || ""
+      );
     };
-  
+
     updateIndex(); // Call on time change
   }, [currentTime, transcriptData]);
 
   useEffect(() => {
     if (wavesurferRef.current) {
-      wavesurferRef.current.on('seek', (seekRatio) => {
-        const seekTime = seekRatio * duration;
-        setCurrentTime(seekTime);
-        // Find the last segment whose start time is less than or equal to the seek time
-        let newIndex = transcriptData.findIndex(segment => segment.start > seekTime) - 1;
-        // If no segment starts after the seek time, use the last segment
-        if (newIndex === -2) {
-          newIndex = transcriptData.length - 1;
+      (wavesurferRef.current as typeof WaveSurfer).on(
+        "seek",
+        (seekRatio: number) => {
+          const seekTime = seekRatio * duration;
+          setCurrentTime(seekTime);
+          // Provide type annotation for transcriptData
+          let newIndex =
+            transcriptData.findIndex(
+              (segment: { start: number }) => segment.start > seekTime
+            ) - 1;
+          // If no segment starts after the seek time, use the last segment
+          if (newIndex === -2) {
+            newIndex = transcriptData.length - 1;
+          }
+          setCurrentIndex(newIndex >= 0 ? newIndex : 0);
         }
-        setCurrentIndex(newIndex >= 0 ? newIndex : 0);
-      });
+      );
     }
-  
+
     return () => {
       if (wavesurferRef.current) {
-        wavesurferRef.current.un('seek');
+        (wavesurferRef.current as typeof WaveSurfer).un("seek");
       }
     };
   }, [wavesurferRef, duration, transcriptData]);
 
-
   const randomColor = () => {
-    const random = (min, max) => Math.random() * (max - min) + min;
+    const random = (min: number, max: number) =>
+      Math.random() * (max - min) + min;
     return `rgba(${random(0, 255)}, ${random(0, 255)}, ${random(0, 255)}, 0.5)`;
   };
 
@@ -95,6 +115,9 @@ const RegionsComponent = ({ audioPath, transcriptPath }) => {
 
   useEffect(() => {
     const ctx = document.createElement("canvas").getContext("2d");
+    if (!ctx) {
+      return;
+    }
     ctx.canvas.width = window.innerWidth; // or any appropriate width
     ctx.canvas.height = 150; // or your required height
 
@@ -141,6 +164,7 @@ const RegionsComponent = ({ audioPath, transcriptPath }) => {
 
       wavesurfer.on("ready", () => {
         console.log("WaveSurfer is ready");
+
         setDuration(wavesurfer.getDuration());
         // Ensure looping is handled correctly
         // region.on('out', () => {
@@ -149,16 +173,16 @@ const RegionsComponent = ({ audioPath, transcriptPath }) => {
         //   }
         // });
 
-        wsRegions.on("region-updated", (region) => {
+        wsRegions.on("region-updated", (region: typeof Region) => {
           console.log("Updated region", region);
         });
 
-        let activeRegion = null;
-        wsRegions.on("region-in", (region) => {
+        let activeRegion: typeof Region | null = null;
+        wsRegions.on("region-in", (region: typeof Region) => {
           console.log("region-in", region);
           activeRegion = region;
         });
-        wsRegions.on("region-out", (region) => {
+        wsRegions.on("region-out", (region: typeof Region) => {
           console.log("region-out", region);
           if (activeRegion === region) {
             if (loopRef.current) {
@@ -168,13 +192,16 @@ const RegionsComponent = ({ audioPath, transcriptPath }) => {
             }
           }
         });
-        wsRegions.on("region-clicked", (region, e) => {
-          e.stopPropagation(); // prevent triggering a click on the waveform
+        wsRegions.on(
+          "region-clicked",
+          (region: typeof Region, e: MouseEvent) => {
+            e.stopPropagation(); // prevent triggering a click on the waveform
 
-          activeRegion = region;
-          region.play();
-          region.setOptions({ color: randomColor() });
-        });
+            activeRegion = region;
+            region.play();
+            region.setOptions({ color: randomColor() });
+          }
+        );
 
         wsRegions.enableDragSelection({
           color: "rgba(255, 0, 0, 0.1)",
@@ -196,41 +223,42 @@ const RegionsComponent = ({ audioPath, transcriptPath }) => {
 
     return () => {
       if (wavesurferRef.current) {
-        wavesurferRef.current.destroy();
-        wavesurferRef.current.un("ready");
-        wavesurferRef.current.un("audioprocess");
+        (wavesurferRef.current as typeof WaveSurfer).destroy();
+        (wavesurferRef.current as typeof WaveSurfer).un("ready");
+        (wavesurferRef.current as typeof WaveSurfer).un("audioprocess");
       }
     };
   }, [audioPath]); // Loop and isPlaying not included here because it does not affect initialization
 
   const handlePlayPause = () => {
     if (wavesurferRef.current) {
-      wavesurferRef.current.playPause();
+      (wavesurferRef.current as typeof WaveSurfer).playPause();
       setIsPlaying(!isPlaying);
     }
   };
-  const handleSkip = (seconds) => {
+  const handleSkip = (seconds: number) => {
     if (wavesurferRef.current) {
-      wavesurferRef.current.skip(seconds);
+      (wavesurferRef.current as typeof WaveSurfer).skip(seconds);
+    }
+  };
+  const handleVolumeChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const newVolume = parseFloat(event.target.value);
+    setVolume(newVolume);
+    if (wavesurferRef.current) {
+      (wavesurferRef.current as typeof WaveSurfer).setVolume(newVolume);
     }
   };
 
-  const handleSpeedChange = (event) => {
+  const handleSpeedChange = (event: ChangeEvent<HTMLInputElement>) => {
     const newRateIndex = parseInt(event.target.value, 10);
     const newRate = speeds[newRateIndex];
     setPlaybackRate(newRate);
     if (wavesurferRef.current) {
-      wavesurferRef.current.setPlaybackRate(newRate);
+      (wavesurferRef.current as typeof WaveSurfer).setPlaybackRate(newRate);
     }
   };
 
-  const handleVolumeChange = (event) => {
-    const newVolume = parseFloat(event.target.value);
-    setVolume(newVolume);
-    wavesurferRef.current.setVolume(newVolume);
-  };
-
-  const formatTime = (time) => {
+  const formatTime = (time: number) => {
     const rounded = Math.round(time);
     const minutes = Math.floor(rounded / 60);
     const seconds = rounded % 60;
@@ -252,9 +280,11 @@ const RegionsComponent = ({ audioPath, transcriptPath }) => {
               />
               <label className="font-medium text-gray-700">Loop regions</label>
             </div>
-            <p style={{color: 'grey'}} >Click and drag on the wave to create regions</p>
+            <p style={{ color: "grey" }}>
+              Click and drag on the wave to create regions
+            </p>
           </div>
-          
+
           <span>{formatTime(duration)}</span>
         </div>
       </div>
@@ -274,20 +304,22 @@ const RegionsComponent = ({ audioPath, transcriptPath }) => {
                     const newZoomLevel = Number(e.target.value);
                     setZoomLevel(newZoomLevel);
                     wavesurferRef.current &&
-                      wavesurferRef.current.zoom(newZoomLevel);
+                      (wavesurferRef.current as typeof WaveSurfer).zoom(
+                        newZoomLevel
+                      );
                   }}
                 />
               </div>
 
               <div className="flex space-x-4">
                 <button
-                  className="rounded-full h-12 w-12 flex items-center justify-center bg-blue-500 text-white"
+                  className="rounded-full h-12 w-12 flex items-center justify-center"
                   onClick={() => handleSkip(-5)}
                 >
                   <RewindIcon className="h-10 w-10" />
                 </button>
                 <button
-                  className="rounded-full h-12 w-12 flex items-center justify-center bg-blue-500 text-white"
+                  className="rounded-full h-12 w-12 flex items-center justify-center"
                   onClick={handlePlayPause}
                 >
                   {isPlaying ? (
@@ -297,7 +329,7 @@ const RegionsComponent = ({ audioPath, transcriptPath }) => {
                   )}
                 </button>
                 <button
-                  className="rounded-full h-12 w-12 flex items-center justify-center bg-blue-500 text-white"
+                  className="rounded-full h-12 w-12 flex items-center justify-center"
                   onClick={() => handleSkip(5)}
                 >
                   <FastForwardIcon className="h-10 w-10" />
@@ -323,19 +355,17 @@ const RegionsComponent = ({ audioPath, transcriptPath }) => {
                   </select>
                 )} */}
 
-                <DropdownMenu >
+                <DropdownMenu>
                   <DropdownMenuTrigger>
                     <PlayBackSpeedIcon />
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent style={{ width: 'fit-content', background: 'white'}}>
+                  <DropdownMenuContent
+                    style={{ width: "fit-content", background: "white" }}
+                  >
                     {speeds.map((speed, index) => (
                       <DropdownMenuItem
                         key={index}
-                        onSelect={() =>
-                          handleSpeedChange({
-                            target: { value: index.toString() },
-                          })
-                        }
+                        onSelect={() => handleSpeedChange}
                       >
                         {speed}x
                       </DropdownMenuItem>
@@ -358,23 +388,18 @@ const RegionsComponent = ({ audioPath, transcriptPath }) => {
             </div>
           </div>
           <section className="liveTranscription">
-          <div className="innerRightSection">
-            <h1>Subtitles</h1>
-            <p>{transcriptText}</p>
+            <div className="innerRightSection">
+              <h1>Subtitles</h1>
+              <p>{transcriptText}</p>
             </div>
           </section>
         </div>
 
-    
         <div className="rightSection">
           <div className="innerRightSection">
-          <p>The ai suggestions placeholder</p>
-       
-
+            <p>The ai suggestions placeholder</p>
           </div>
-         
-          </div>
-        
+        </div>
       </div>
     </div>
   );

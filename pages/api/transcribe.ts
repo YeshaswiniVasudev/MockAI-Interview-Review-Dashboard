@@ -1,7 +1,9 @@
 // pages/api/transcribe.js
+import { NextApiRequest, NextApiResponse } from 'next';
 import { exec } from 'child_process';
 
-export default function handler(req, res) {
+
+export default function handler(req : NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
     const { audioPath } = req.body;
 

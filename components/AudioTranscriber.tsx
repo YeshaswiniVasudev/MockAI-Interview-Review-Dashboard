@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-function AudioToTextGenerator({ audioPath }) {
+function AudioToTextGenerator({ audioPath }: { audioPath: string }) {
   const [transcript, setTranscript] = useState('');
 
   const [error, setError] = useState('');
