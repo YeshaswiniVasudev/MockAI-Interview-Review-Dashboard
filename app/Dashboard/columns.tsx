@@ -12,6 +12,7 @@ export type recording = {
   duration: number;
   date: string;
   path: string;
+  transcript: string;
 };
 
 export const columns: ColumnDef<recording>[] = [

@@ -9,6 +9,7 @@ import { HomeIcon } from "@heroicons/react/solid";
 interface Audio {
   title: string;
   path: string;
+  transcript: string;
 }
 
 const AudioPage = () => {
@@ -42,7 +43,7 @@ const AudioPage = () => {
           <h1>{audio.title}</h1>
         </div>
         <div className="regionsComponent">
-          <RegionsComponent audioPath={audio.path} />
+          <RegionsComponent audioPath={audio.path} transcriptPath={audio.transcript}/>
         </div>
 
         <br />

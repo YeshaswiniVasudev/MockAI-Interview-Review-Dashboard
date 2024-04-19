@@ -6,7 +6,6 @@ import TimelinePlugin from "wavesurfer.js/dist/plugins/timeline.esm.js";
 import Hover from "wavesurfer.js/dist/plugins/hover.esm.js";
 import { PlayIcon, PauseIcon } from "@heroicons/react/solid";
 import PlayBackSpeedIcon from "./ui/PlayBackSpeedIcon";
-import { Slider } from "@/components/ui/slider"
 import {
   FastForwardIcon,
   RewindIcon,
@@ -18,12 +17,11 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+// import { transcriptData } from '../public/transcripts/TimeTranscript';
 
-const RegionsComponent = ({ audioPath }) => {
+const RegionsComponent = ({ audioPath, transcriptPath }) => {
   const waveformRef = useRef(null);
   const wavesurferRef = useRef(null);
   const loopRef = useRef(true); // Use a ref to hold the loop state
@@ -36,6 +34,55 @@ const RegionsComponent = ({ audioPath }) => {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [isSelectOpen, setIsSelectOpen] = useState(false);
+  const [transcriptText, setTranscriptText] = useState('');
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const [transcriptData, setTranscriptData] = useState([]);
+
+  useEffect(() => {
+    import(`${transcriptPath}`)
+      .then((module) => {
+        const transcriptData = module.transcriptData;
+        setTranscriptData(transcriptData);
+      })
+      .catch((err) => {
+        console.error(`Error loading transcript data: ${err}`);
+      });
+  }, []);
+
+  useEffect(() => {
+    // This effect adjusts currentIndex based on the current time
+    const updateIndex = () => {
+      const newIndex = transcriptData.findIndex(segment => currentTime < segment.start) - 1;
+      setCurrentIndex(newIndex >= 0 ? newIndex : 0);
+      setTranscriptText(transcriptData[currentIndex]?.text || "");
+    };
+  
+    updateIndex(); // Call on time change
+  }, [currentTime, transcriptData]);
+
+  useEffect(() => {
+    if (wavesurferRef.current) {
+      wavesurferRef.current.on('seek', (seekRatio) => {
+        const seekTime = seekRatio * duration;
+        setCurrentTime(seekTime);
+        // Find the last segment whose start time is less than or equal to the seek time
+        let newIndex = transcriptData.findIndex(segment => segment.start > seekTime) - 1;
+        // If no segment starts after the seek time, use the last segment
+        if (newIndex === -2) {
+          newIndex = transcriptData.length - 1;
+        }
+        setCurrentIndex(newIndex >= 0 ? newIndex : 0);
+      });
+    }
+  
+    return () => {
+      if (wavesurferRef.current) {
+        wavesurferRef.current.un('seek');
+      }
+    };
+  }, [wavesurferRef, duration, transcriptData]);
+
 
   const randomColor = () => {
     const random = (min, max) => Math.random() * (max - min) + min;
@@ -313,6 +360,7 @@ const RegionsComponent = ({ audioPath }) => {
           <section className="liveTranscription">
           <div className="innerRightSection">
             <h1>Subtitles</h1>
+            <p>{transcriptText}</p>
             </div>
           </section>
         </div>

@@ -9,6 +9,7 @@ type AudioData = {
   duration: number;
   date: string;
   path: string;
+  transcript: string;
 };
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {

@@ -4,13 +4,16 @@
       "title": "sample1",
       "duration": 218,
       "date": "2024-04-10",
-      "path": "/audios/sample1.wav" 
+      "path": "/audios/sample1.wav",
+      "transcript": "./transcripts/TimeTranscript1"
     },
     {
       "id": 2,
       "title": "sample2",
       "duration": 131,
       "date": "2024-04-10",
-      "path": "/audios/sample2.wav" 
+      "path": "/audios/sample2.wav",
+      "transcript": "./transcripts/TimeTranscript"
+
     }
   ]

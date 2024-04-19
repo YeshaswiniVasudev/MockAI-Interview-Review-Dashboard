@@ -1,5 +1,5 @@
 // PlaybackSpeedIcon.js
-
+/* eslint-disable */
 import React from 'react';
 
 function PlaybackSpeedIcon() {
