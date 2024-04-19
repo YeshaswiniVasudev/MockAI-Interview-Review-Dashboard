@@ -1,10 +1,27 @@
 import React, { useEffect, useRef, useState } from "react";
 import WaveSurfer from "wavesurfer.js";
 import RegionsPlugin from "wavesurfer.js/dist/plugins/regions.esm.js";
-import "./WaveSurferComponent.css";
+import "./WavesurferComponent.css";
 import TimelinePlugin from "wavesurfer.js/dist/plugins/timeline.esm.js";
 import Hover from "wavesurfer.js/dist/plugins/hover.esm.js";
+import { PlayIcon, PauseIcon } from "@heroicons/react/solid";
+import PlayBackSpeedIcon from "./ui/PlayBackSpeedIcon";
+import { Slider } from "@/components/ui/slider"
+import {
+  FastForwardIcon,
+  RewindIcon,
+  ZoomInIcon,
+  VolumeUpIcon,
+} from "@heroicons/react/solid";
 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const RegionsComponent = ({ audioPath }) => {
   const waveformRef = useRef(null);
@@ -17,7 +34,8 @@ const RegionsComponent = ({ audioPath }) => {
   const [playbackRate, setPlaybackRate] = useState(1);
   const speeds = [0.25, 0.5, 1, 2, 4];
   const [currentTime, setCurrentTime] = useState(0);
-const [duration, setDuration] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [isSelectOpen, setIsSelectOpen] = useState(false);
 
   const randomColor = () => {
     const random = (min, max) => Math.random() * (max - min) + min;
@@ -42,8 +60,6 @@ const [duration, setDuration] = useState(0);
     progressGradient.addColorStop(0, "rgb(200, 0, 200)"); // darker light blue
     progressGradient.addColorStop(0.7, "rgb(100, 0, 100)"); // darker purple
     progressGradient.addColorStop(1, "rgb(0, 0, 0)"); // darker red
-
-   
 
     if (waveformRef.current) {
       const wavesurfer = WaveSurfer.create({
@@ -90,8 +106,6 @@ const [duration, setDuration] = useState(0);
           console.log("Updated region", region);
         });
 
-
-
         let activeRegion = null;
         wsRegions.on("region-in", (region) => {
           console.log("region-in", region);
@@ -124,9 +138,9 @@ const [duration, setDuration] = useState(0);
         });
       });
 
-      wavesurfer.on('audioprocess', () => {
+      wavesurfer.on("audioprocess", () => {
         const currentTime = wavesurfer.getCurrentTime();
-        console.log('Current Time: ', currentTime); // Log the current time to debug
+        console.log("Current Time: ", currentTime); // Log the current time to debug
         setCurrentTime(currentTime);
       });
 
@@ -136,8 +150,8 @@ const [duration, setDuration] = useState(0);
     return () => {
       if (wavesurferRef.current) {
         wavesurferRef.current.destroy();
-        wavesurferRef.current.un('ready');
-        wavesurferRef.current.un('audioprocess');
+        wavesurferRef.current.un("ready");
+        wavesurferRef.current.un("audioprocess");
       }
     };
   }, [audioPath]); // Loop and isPlaying not included here because it does not affect initialization
@@ -173,69 +187,146 @@ const [duration, setDuration] = useState(0);
     const rounded = Math.round(time);
     const minutes = Math.floor(rounded / 60);
     const seconds = rounded % 60;
-    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   };
 
   return (
     <div>
       <div ref={waveformRef} className="waveform-container">
-
-      <div className="waveform-time-display">
-
-  <span  >{formatTime(currentTime)}</span>
-  <span >{formatTime(duration)}</span>
-
-</div>
+        <div className="waveform-time-display">
+          <div className="TimerLoopRegions">
+            <span>{formatTime(currentTime)}</span>
+            <div className="flex items-center space-x-2">
+              <input
+                type="checkbox"
+                checked={loop}
+                onChange={(e) => setLoop(e.target.checked)}
+                className="form-checkbox h-5 w-5 text-blue-600"
+              />
+              <label className="font-medium text-gray-700">Loop regions</label>
+            </div>
+            <p style={{color: 'grey'}} >Click and drag on the wave to create regions</p>
+          </div>
+          
+          <span>{formatTime(duration)}</span>
+        </div>
       </div>
-    
-      <button onClick={() => handleSkip(-5)}>{"< 5s"}</button>
-      <button onClick={() => handleSkip(5)}>{"5s >"}</button>
-      <button onClick={handlePlayPause}>{isPlaying ? "Pause" : "Play"}</button>
-      <label htmlFor="speedControl">Speed: {playbackRate.toFixed(2)}</label>
-      <input
-        type="range"
-        id="speedControl"
-        min="0"
-        max={speeds.length - 1}
-        defaultValue={2} // Default to index of 1 in the speeds array, which is normal speed
-        onChange={handleSpeedChange}
-      />
-      <div>
-        <label>
-          <input
-            type="checkbox"
-            checked={loop}
-            onChange={(e) => setLoop(e.target.checked)}
-          />
-          Loop regions
-        </label>
-        <label style={{ marginLeft: "2em" }}>
-          Zoom:
-          <input
-            type="range"
-            min="10"
-            max="1000"
-            value={zoomLevel}
-            onChange={(e) => {
-              const newZoomLevel = Number(e.target.value);
-              setZoomLevel(newZoomLevel);
-              wavesurferRef.current && wavesurferRef.current.zoom(newZoomLevel);
-            }}
-          />
-          {/* <input type="range" min="0" max="1" step="0.01" value={volume} onChange={handleVolumeChange} /> */}
-        </label>
 
-        <label style={{ marginLeft: "2em" }}>
-          Volume:
-          <input
-            type="range"
-            min="0"
-            max="1"
-            step="0.01"
-            value={volume}
-            onChange={handleVolumeChange}
-          />
-        </label>
+      <div className="Parent">
+        <div className="leftSection">
+          <div className="eventControllers">
+            <div className="control-group">
+              <div className="flex items-center ">
+                <ZoomInIcon className="h-8 w-8" />
+                <input
+                  type="range"
+                  min="10"
+                  max="1000"
+                  value={zoomLevel}
+                  onChange={(e) => {
+                    const newZoomLevel = Number(e.target.value);
+                    setZoomLevel(newZoomLevel);
+                    wavesurferRef.current &&
+                      wavesurferRef.current.zoom(newZoomLevel);
+                  }}
+                />
+              </div>
+
+              <div className="flex space-x-4">
+                <button
+                  className="rounded-full h-12 w-12 flex items-center justify-center bg-blue-500 text-white"
+                  onClick={() => handleSkip(-5)}
+                >
+                  <RewindIcon className="h-10 w-10" />
+                </button>
+                <button
+                  className="rounded-full h-12 w-12 flex items-center justify-center bg-blue-500 text-white"
+                  onClick={handlePlayPause}
+                >
+                  {isPlaying ? (
+                    <PauseIcon className="h-10 w-10" />
+                  ) : (
+                    <PlayIcon className="h-10 w-10" />
+                  )}
+                </button>
+                <button
+                  className="rounded-full h-12 w-12 flex items-center justify-center bg-blue-500 text-white"
+                  onClick={() => handleSkip(5)}
+                >
+                  <FastForwardIcon className="h-10 w-10" />
+                </button>
+              </div>
+
+              <div className="flex items-center">
+                {/* <div onClick={() => setIsSelectOpen(!isSelectOpen)}>
+                  <PlayBackSpeedIcon />
+                </div>
+                {isSelectOpen && (
+                  <select
+                    id="speedControl"
+                    defaultValue={2} // Default to index of 1 in the speeds array, which is normal speed
+                    onChange={handleSpeedChange}
+                    onBlur={() => setIsSelectOpen(false)}
+                  >
+                    {speeds.map((speed, index) => (
+                      <option value={index} key={index}>
+                        {speed}
+                      </option>
+                    ))}
+                  </select>
+                )} */}
+
+                <DropdownMenu >
+                  <DropdownMenuTrigger>
+                    <PlayBackSpeedIcon />
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent style={{ width: 'fit-content', background: 'white'}}>
+                    {speeds.map((speed, index) => (
+                      <DropdownMenuItem
+                        key={index}
+                        onSelect={() =>
+                          handleSpeedChange({
+                            target: { value: index.toString() },
+                          })
+                        }
+                      >
+                        {speed}x
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
+
+              <div className="flex items-center">
+                <VolumeUpIcon className="h-8 w-8" />
+                <input
+                  type="range"
+                  min="0"
+                  max="1"
+                  step="0.01"
+                  value={volume}
+                  onChange={handleVolumeChange}
+                />
+              </div>
+            </div>
+          </div>
+          <section className="liveTranscription">
+          <div className="innerRightSection">
+            <h1>Subtitles</h1>
+            </div>
+          </section>
+        </div>
+
+    
+        <div className="rightSection">
+          <div className="innerRightSection">
+          <p>The ai suggestions placeholder</p>
+       
+
+          </div>
+         
+          </div>
+        
       </div>
     </div>
   );

@@ -1,14 +1,159 @@
+@import 'tailwindcss/base';
+/* @import 'tailwindcss/components'; */
+@import 'tailwindcss/utilities';
 
+html,
+body {
+  margin: 0;
+  padding: 0;
+  /* background-color: brown; */
+  /* background:  #888;; */
+  background: #f5f5f5;
+}
 .waveform-container {
-    width: 600px;
-    height: 150px;
+  margin-top: 2vh;
+  height: 35vh;
+  width: 92vw;
+  margin-left: 2vh;
+  /* background: blueviolet; */
+  
+}
+.TimerLoopRegions{
+    display: flex;
+   gap: 3rem;
+
 }
 
-.waveform-time-display {
-    /* Example CSS */
-    color: white;
-    background-color: black;
-    padding: 10px;
+.control-group {
+    display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;  /* Or whatever spacing you prefer */
   }
 
+.waveform-time-display {
+  /* Example CSS */
+  color: black;
+  /* background-color: black; */
+  /* padding: 10px; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.relative { position: relative; }
+.absolute { position: absolute; }
+.top-full { top: 100%; }
+.left-0 { left: 0; }
+.mt-2 { margin-top: 0.5rem; }
+.z-10 { z-index: 10; }
+
+.eventControllers {
+  /* margin-top: 2vh ; */
+  background: linear-gradient(to right, #12c2e9, #c471ed, #f64f59);
+  /* width: 60vw; */
+  height: 10vh;
+  box-sizing: border-box;
+  place-items: center;
+}
+* {
+  box-sizing: border-box;
+}
+
+
+.leftSection {
+  width: 60vw;
+  /* float: left;
+    display: flex;
+        flex-direction: column; */
+  height: 43vh;
+  /* background: green; */
+}
+
+.Parent {
+  /* margin-bottom: 2vh; */
+  display: flex;
+  flex-direction: row;
+  min-height: 47vh;
+  /* align-items: stretch; */
+  /* background: pink; */
+}
+
+/* .rightSection {
+
+  height: 43vh;
+  width: 34vw;
+  margin-left: 2vh;
+  background: linear-gradient(to right, #12c2e9, #c471ed, #f64f59);
+
+  border-bottom-right-radius: 10px;
+
+}
+
+.innerRightSection{
+    position: relative;
+    background: white;
+    height: 41vh;
+  width: 32vw;
+  left: 1vw;
+  top: 1vh;
+} */
+
+.rightSection {
+    position: relative;
+    height: 43vh;
+    width: 34vw;
+    margin-left: 2vh;
+    background: linear-gradient(to right, #12c2e9, #c471ed, #f64f59);
+    border-bottom-right-radius: 10px;
+    overflow: hidden; /* This will ensure the inner section doesn't overflow the wrapper */
+  }
   
+  .rightSection::before {
+    content: "";
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    bottom: 2px;
+    left: 2px;
+    background: white;
+    border-bottom-right-radius: 8px; /* Adjust this value to match your table's border radius */
+    z-index: 1;
+  }
+  
+  .innerRightSection {
+    position: relative;
+    z-index: 2;
+    height: 41vh;
+    width: 32vw;
+    left: 1vw;
+    top: 1vh;
+  }
+
+  .liveTranscription {
+    margin-top: 2vh;
+    background: aqua;
+    height: 31vh;
+    border-bottom-left-radius: 10px;
+    box-sizing: border-box;
+    position: relative;
+    background: linear-gradient(to right, #12c2e9, #c471ed, #f64f59);
+    
+    overflow: hidden;
+  }
+
+  .liveTranscription::before {
+    content: "";
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    bottom: 2px;
+    left: 2px;
+    background: white;
+    border-bottom-left-radius: 8px; /* Adjust this value to match your table's border radius */
+    z-index: 1;
+  }
+
+
+
+
