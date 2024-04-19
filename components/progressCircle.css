@@ -1,38 +1,37 @@
+/* Styles for the circle element */
 circle {
-    transition: all 1s ease-in-out;
-    transform: rotate(93deg);
-    transform-origin: 50% 50%;
-  }
-  
- 
-  
-  .progress-circle {
-    justify-content: center;
-    align-items: center;
-  }
-  
- 
-
-
-  .play-pause-btn {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-
-
-.progress-circle svg:hover {
-    transform: scale(1.05);
+  transition: all 1s ease-in-out; /* Add a transition effect to all properties */
+  transform: rotate(93deg); /* Rotate the element 93 degrees */
+  transform-origin: 50% 50%; /* Set the origin of the transformation to the center of the element */
 }
 
+/* Styles for the progress-circle class */
+.progress-circle {
+  justify-content: center; /* Center the children horizontally */
+  align-items: center; /* Center the children vertically */
+}
 
+/* Styles for the play-pause-btn class */
+.play-pause-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(
+    -50%,
+    -50%
+  ); /* Move the element to the left and up by half its width and height, respectively, to center it */
+  cursor: pointer;
+  display: flex; /* Use flexbox for layout */
+  justify-content: center; /* Center the children horizontally */
+  align-items: center; /* Center the children vertically */
+}
+
+/* Styles for the svg element when it's hovered over */
+.progress-circle svg:hover {
+  transform: scale(1.05); /* Scale the element up by 5% */
+}
+
+/* Styles for the icon-fill class */
 .icon-fill {
   fill: linear-gradient(-45deg, #12c2e9, #c471ed, #f64f59);
-   /* Light blue */
 }

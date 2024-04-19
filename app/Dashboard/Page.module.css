@@ -1,48 +1,50 @@
+/* Column for actions, with a custom cell that includes a link to a detailed page */
 .container {
-    font-family: Arial, sans-serif;
-    /* background: #f5f5f5;
-    min-height: 100vh; */
-  }
-  
-  .header {
-    display: flex;
-    align-items: center;
-    padding: 20px;
-    background: linear-gradient(to right, #12c2e9, #c471ed, #f64f59);
-    color: #fff;
-    /* background: black; */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .title {
-    font-size: 24px;
-    font-weight: bold;
-  }
-  
-  .content {
-    padding: 20px;
-    /* background-color: #fff; */
-    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
-  }
+  font-family: Arial, sans-serif;
+}
 
+/* Styles for the header  */
+.header {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  background: linear-gradient(to right, #12c2e9, #c471ed, #f64f59);
+  color: #fff;
 
-  .footer {
-    text-align: right; /* Aligns the text to the right */
-    padding: 10px; /* Adds some padding around the text */
-    font-size: 12px; /* Makes the text smaller */
-    color: #888;
-  }
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
 
+/* Styles for the title */
+.title {
+  font-size: 24px;
+  font-weight: bold;
+}
 
- 
+/* Styles for the content  */
+.content {
+  padding: 20px;
+}
+
+/* Styles for the footer */
+.footer {
+  text-align: right;
+  padding: 10px;
+  font-size: 12px;
+  color: #888;
+}
+
+/* Styles for the button with class .button-33 */
 .button-33 {
   background-color: #d7f3fb;
   border-radius: 100px;
-  box-shadow: rgba(99, 187, 244, .2) 0 -25px 18px -14px inset, rgba(99, 187, 244, .15) 0 1px 2px, rgba(99, 187, 244, .15) 0 2px 4px, rgba(99, 187, 244, .15) 0 4px 8px, rgba(99, 187, 244, .15) 0 8px 16px, rgba(99, 187, 244, .15) 0 16px 32px;
-  color: #007bff;;
+  box-shadow: rgba(99, 187, 244, 0.2) 0 -25px 18px -14px inset,
+    rgba(99, 187, 244, 0.15) 0 1px 2px, rgba(99, 187, 244, 0.15) 0 2px 4px,
+    rgba(99, 187, 244, 0.15) 0 4px 8px, rgba(99, 187, 244, 0.15) 0 8px 16px,
+    rgba(99, 187, 244, 0.15) 0 16px 32px;
+  color: #007bff;
   cursor: pointer;
   display: inline-block;
-  font-family: CerebriSans-Regular,-apple-system,system-ui,Roboto,sans-serif;
+  font-family: CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif;
   padding: 7px 20px;
   text-align: center;
   text-decoration: none;
@@ -54,10 +56,12 @@
   touch-action: manipulation;
 }
 
+/* Styles for the button with class .button-33 when hovered */
 .button-33:hover {
-    background-color: #c2e0f5; /* Lighter blue */
-    box-shadow: rgba(99, 187, 244, .2) 0 -25px 18px -14px inset, rgba(99, 187, 244, .15) 0 1px 2px, rgba(99, 187, 244, .15) 0 2px 4px, rgba(99, 187, 244, .15) 0 4px 8px, rgba(99, 187, 244, .15) 0 8px 16px, rgba(99, 187, 244, .15) 0 16px 32px;
-    transform: scale(1.05) rotate(-1deg);
-
-  }
-
+  background-color: #c2e0f5;
+  box-shadow: rgba(99, 187, 244, 0.2) 0 -25px 18px -14px inset,
+    rgba(99, 187, 244, 0.15) 0 1px 2px, rgba(99, 187, 244, 0.15) 0 2px 4px,
+    rgba(99, 187, 244, 0.15) 0 4px 8px, rgba(99, 187, 244, 0.15) 0 8px 16px,
+    rgba(99, 187, 244, 0.15) 0 16px 32px;
+  transform: scale(1.05) rotate(-1deg);
+}

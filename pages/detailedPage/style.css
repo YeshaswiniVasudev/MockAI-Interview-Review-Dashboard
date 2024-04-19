@@ -1,47 +1,46 @@
-@import 'tailwindcss/base';
-/* @import 'tailwindcss/components'; */
-@import 'tailwindcss/utilities';
+/* Import base and utilities from tailwindcss */
+@import "tailwindcss/base";
+@import "tailwindcss/utilities";
 
-
-
-html, body {
+/* Reset margin and padding for html and body */
+html,
+body {
   margin: 0;
   padding: 0;
 }
 
-
-.regionsComponent{
-    /* display: flex;
-    flex-wrap: wrap;
-    justify-content: center; */
-    margin-top: 2vh;
-    margin-left: 2vw;
-    margin-right: 2vw;
-    /* background: red; */
-    height: calc(100vh - 14vh);
+/* Style the regionsComponent with margins and height */
+.regionsComponent {
+  margin-top: 2vh;
+  margin-left: 2vw;
+  margin-right: 2vw;
+  height: calc(
+    100vh - 14vh
+  ); /* Height is calculated based on the viewport height */
 }
 
-.AudioTitle{
-    background: linear-gradient(to right, #12c2e9, #c471ed, #f64f59);
- margin-top :2vh;
- margin-left: 2vw;
-    margin-right: 2vw;
- font-size: 24px;
- font-weight: bold;
- font-family: Arial, sans-serif;
- color: #fff;
- padding: 20px;
- border-top-left-radius: 10px;
- border-top-right-radius: 10px;
- display: flex;
+/* Style the AudioTitle with a linear gradient background, margins, font properties, color, padding, border radius, and flex properties */
+.AudioTitle {
+  background: linear-gradient(to right, #12c2e9, #c471ed, #f64f59);
+  margin-top: 2vh;
+  margin-left: 2vw;
+  margin-right: 2vw;
+  font-size: 24px;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+  color: #fff;
+  padding: 20px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  display: flex;
   align-items: center;
   height: 12vh;
 }
 
+/* Style the header with flex properties, padding, a linear gradient background, color, box shadow, and margin */
 .header {
   display: flex;
   align-items: center;
-
   padding: 20px;
   background: linear-gradient(to right, #12c2e9, #c471ed, #f64f59);
   color: #fff;
@@ -49,15 +48,15 @@ html, body {
   margin: 0;
 }
 
+/* Style the title with font properties */
 .title {
   font-size: 24px;
   font-weight: bold;
 }
 
+/* Style the container with a font family, margin, and minimum height */
 .container {
   font-family: Arial, sans-serif;
   margin: 0;
-
- 
-    min-height: 100vh;
+  min-height: 100vh;
 }

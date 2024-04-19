@@ -1,16 +1,19 @@
-'use client';
+// Indicate that this code should run on the client side
+"use client";
+// Import necessary modules and components
+import { useEffect } from "react"; // React's useEffect hook for side effects
+import { useRouter } from "next/navigation"; // Next.js's useRouter hook for routing
 
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-
+// Define the main component for the home page
 export default function Home() {
+  // Get the router object
   const router = useRouter();
-
+  // Use an effect to redirect to the Dashboard page when the component mounts
   useEffect(() => {
-    router.push('/Dashboard');
-  }, [router]);  // Adding router to the dependency array ensures this runs once the router is available
+    // Use the router to navigate to the Dashboard page
+    router.push("/Dashboard");
+  }, [router]); // The router object is a dependency of this effect
 
-  return (
-    <div>Loading...</div>  // Display a loading message or a spinner while waiting for the navigation
-  );
+  // Render a loading message while the redirection is in progress
+  return <div>Loading...</div>;
 }

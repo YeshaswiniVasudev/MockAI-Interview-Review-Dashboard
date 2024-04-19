@@ -1,3 +1,4 @@
+// Import necessary modules and components
 import { ColumnDef } from "@tanstack/react-table";
 import React, { Suspense, lazy } from "react";
 import Link from "next/link";
@@ -6,6 +7,7 @@ import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import AudioPlayer from "@/components/audioPlayer";
 import styles from "./Page.module.css";
 
+// Define the type for a recording
 export type recording = {
   id: number;
   title: string;
@@ -15,17 +17,21 @@ export type recording = {
   transcript: string;
 };
 
+// Define the columns for the table
 export const columns: ColumnDef<recording>[] = [
   {
+    // Column for the ID
     accessorKey: "id",
     header: "Id",
   },
 
   {
+    // Column for the title
     accessorKey: "title",
     header: "Title",
   },
   {
+    // Column for the date, with a custom header that includes a sorting button
     accessorKey: "date",
     header: ({ column }) => {
       return (
@@ -40,55 +46,31 @@ export const columns: ColumnDef<recording>[] = [
     },
   },
   {
+    // Column for the duration, with a custom cell that formats the duration
     accessorKey: "duration",
     header: "Duration",
-    // header: ({ column }) => {
-    //   return (
-    //     <div>
-    //       <Button
-    //         variant="ghost"
-    //         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-    //       >
-    //         Duration
-    //         <ArrowUpDown className="ml-2 h-4 w-4" />
-    //       </Button>
-    //     </div>
-    //   );
-    // },
+
     cell: (cellContext) => {
       const value = cellContext.row.original.duration;
-      // Example: converting seconds to a more readable format
+
       const hours = Math.floor(value / 3600);
       const minutes = Math.floor((value % 3600) / 60);
       const seconds = value % 60;
-      return (
-        <div >
-          {" "}
-          {/* Tailwind CSS class for centering text */}
-          {`${hours}h ${minutes}m ${seconds}s`}
-        </div>
-      );
+      return <div> {`${hours}h ${minutes}m ${seconds}s`}</div>;
     },
-    // meta: {
-    //   align: 'right'
-    // },
   },
   {
+    // Column for the audio file, with a custom cell that includes an audio player
     accessorKey: "path",
     header: "Audio File",
     cell: ({ row }) => (
-      //   <div>
-      //     <audio controls>
-      //       <source src={row.original.path} type="audio/wav" />
-      //       Your browser does not support the audio element.
-      //     </audio>
-      //   </div>
       <div>
         <AudioPlayer path={row.original.path} />
       </div>
     ),
   },
   {
+    // Column for actions, with a custom cell that includes a link to a detailed page
     id: "actions",
     cell: ({ row }) => (
       <Link href={`/detailedPage/${row.original.id}`}>

@@ -1,3 +1,6 @@
+// This is an array of objects, where each object represents a segment of a transcript.
+// Each object has a 'start' property, which is the time in seconds when the segment starts,
+// and a 'text' property, which is the text of the segment.
 export const transcriptData = [
     { start: 0, text: "Good morning Sarah." },
     { start: 2, text: "Thank you for joining us today" },

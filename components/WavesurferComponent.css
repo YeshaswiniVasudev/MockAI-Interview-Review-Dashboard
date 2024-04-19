@@ -1,166 +1,157 @@
-@import 'tailwindcss/base';
-/* @import 'tailwindcss/components'; */
-@import 'tailwindcss/utilities';
+/* Importing base and utilities from tailwindcss */
+@import "tailwindcss/base";
+@import "tailwindcss/utilities";
 
+/* Setting the margin and padding for the html and body to 0 and setting the background color */
 html,
 body {
   margin: 0;
   padding: 0;
-  /* background-color: brown; */
-  /* background:  #888;; */
   background: #f5f5f5;
 }
+
+/* Styling the container for the waveform */
 .waveform-container {
   margin-top: 2vh;
   height: 35vh;
   width: 92vw;
   margin-left: 2vh;
-  /* background: blueviolet; */
-  
-}
-.TimerLoopRegions{
-    display: flex;
-   gap: 3rem;
-
 }
 
+/* Styling the TimerLoopRegions with flex and setting the gap between elements */
+.TimerLoopRegions {
+  display: flex;
+  gap: 3rem;
+}
+
+/* Styling the control group with flex and setting the alignment and padding */
 .control-group {
-    display: flex;
+  display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 16px;  /* Or whatever spacing you prefer */
-  }
+  padding: 0 16px;
+}
 
+/* Styling the waveform time display with flex and setting the alignment and color */
 .waveform-time-display {
-  /* Example CSS */
   color: black;
-  /* background-color: black; */
-  /* padding: 10px; */
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.relative { position: relative; }
-.absolute { position: absolute; }
-.top-full { top: 100%; }
-.left-0 { left: 0; }
-.mt-2 { margin-top: 0.5rem; }
-.z-10 { z-index: 10; }
+/* Positioning classes */
+.relative {
+  position: relative;
+}
+.absolute {
+  position: absolute;
+}
+.top-full {
+  top: 100%;
+}
+.left-0 {
+  left: 0;
+}
+.mt-2 {
+  margin-top: 0.5rem;
+}
+.z-10 {
+  z-index: 10;
+}
 
+/* Styling the eventControllers with a linear gradient background and setting the height */
 .eventControllers {
-  /* margin-top: 2vh ; */
   background: linear-gradient(to right, #12c2e9, #c471ed, #f64f59);
-  /* width: 60vw; */
   height: 10vh;
   box-sizing: border-box;
   place-items: center;
 }
+
+/* Setting the box-sizing for all elements */
 * {
   box-sizing: border-box;
 }
 
-
+/* Styling the left section of the layout */
 .leftSection {
   width: 60vw;
-  /* float: left;
-    display: flex;
-        flex-direction: column; */
   height: 43vh;
-  /* background: green; */
 }
 
+/* Styling the parent container with flex and setting the direction and minimum height */
 .Parent {
-  /* margin-bottom: 2vh; */
   display: flex;
   flex-direction: row;
   min-height: 47vh;
-  /* align-items: stretch; */
-  /* background: pink; */
 }
 
-/* .rightSection {
-
+/* Styling the right section of the layout */
+.rightSection {
+  position: relative;
   height: 43vh;
   width: 34vw;
   margin-left: 2vh;
   background: linear-gradient(to right, #12c2e9, #c471ed, #f64f59);
-
   border-bottom-right-radius: 10px;
-
+  overflow: hidden;
 }
 
-.innerRightSection{
-    position: relative;
-    background: white;
-    height: 41vh;
+/* Styling the before pseudo-element of the right section */
+.rightSection::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  bottom: 2px;
+  left: 2px;
+  background: white;
+  border-bottom-right-radius: 8px;
+  z-index: 1;
+}
+
+/* Styling the inner right section of the layout */
+.innerRightSection {
+  position: relative;
+  z-index: 2;
+  height: 41vh;
   width: 32vw;
   left: 1vw;
   top: 1vh;
-} */
+}
 
-.rightSection {
-    position: relative;
-    height: 43vh;
-    width: 34vw;
-    margin-left: 2vh;
-    background: linear-gradient(to right, #12c2e9, #c471ed, #f64f59);
-    border-bottom-right-radius: 10px;
-    overflow: hidden; /* This will ensure the inner section doesn't overflow the wrapper */
-  }
-  
-  .rightSection::before {
-    content: "";
-    position: absolute;
-    top: 2px;
-    right: 2px;
-    bottom: 2px;
-    left: 2px;
-    background: white;
-    border-bottom-right-radius: 8px; /* Adjust this value to match your table's border radius */
-    z-index: 1;
-  }
-  
-  .innerRightSection {
-    position: relative;
-    z-index: 2;
-    height: 41vh;
-    width: 32vw;
-    left: 1vw;
-    top: 1vh;
-  }
+/* Styling the live transcription section of the layout */
+.liveTranscription {
+  margin-top: 2vh;
+  background: aqua;
+  height: 31vh;
+  border-bottom-left-radius: 10px;
+  box-sizing: border-box;
+  position: relative;
+  background: linear-gradient(to right, #12c2e9, #c471ed, #f64f59);
+  overflow: hidden;
+}
 
-  .liveTranscription {
-    margin-top: 2vh;
-    background: aqua;
-    height: 31vh;
-    border-bottom-left-radius: 10px;
-    box-sizing: border-box;
-    position: relative;
-    background: linear-gradient(to right, #12c2e9, #c471ed, #f64f59);
-    
-    overflow: hidden;
-  }
+/* Styling the before pseudo-element of the live transcription section */
+.liveTranscription::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  bottom: 2px;
+  left: 2px;
+  background: white;
+  border-bottom-left-radius: 8px;
+  z-index: 1;
+}
 
-  .liveTranscription::before {
-    content: "";
-    position: absolute;
-    top: 2px;
-    right: 2px;
-    bottom: 2px;
-    left: 2px;
-    background: white;
-    border-bottom-left-radius: 8px; /* Adjust this value to match your table's border radius */
-    z-index: 1;
-  }
+/* Styling the dropdown menu items */
+.dropdown-menu-item {
+  cursor: pointer;
+}
 
-  .dropdown-menu-item {
-    cursor: pointer;
-  }
-  
-  .dropdown-menu-item:hover {
-    color: blue;
-    cursor: pointer;
-  }
-
-
+/* Styling the dropdown menu items on hover */
+.dropdown-menu-item:hover {
+  color: blue;
+  cursor: pointer;
+}
