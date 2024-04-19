@@ -89,6 +89,8 @@ const RegionsComponent = ({
       });
   }, []);
 
+
+
   // Update the current index and transcript text whenever the current time or transcript data changes
   useEffect(() => {
     const updateIndex = () => {
@@ -234,10 +236,17 @@ const RegionsComponent = ({
           color: "rgba(255, 0, 0, 0.1)",
         });
 
+        wavesurfer.on("finish", () => {
+          console.log("audio ended");
+          setIsPlaying(false);
+        });
+
         wavesurfer.on("interaction", () => {
           activeRegion = null;
         });
       });
+
+      
 
       wavesurfer.on("audioprocess", () => {
         const currentTime = wavesurfer.getCurrentTime();
