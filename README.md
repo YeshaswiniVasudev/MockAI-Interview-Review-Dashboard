@@ -57,10 +57,6 @@ This project utilizes a robust stack of modern technologies, frameworks, and lib
 - **[WaveSurfer.js](https://wavesurfer-js.org/)**: A customizable waveform audio visualization library built on Web Audio API and Canvas.
 
 
-
-## Usage
-Explain how to use your project. What routes are available? What can users do?
-
 ## Built With
 - [Next.js](https://nextjs.org/) - The React framework for production
 - [React](https://reactjs.org/) - A JavaScript library for building user interfaces
@@ -83,11 +79,5 @@ Thank you for your indirect contributions through shared knowledge and inspirati
 
 ## Explore More
 
-Dive into my [In-Depth Documentation](./detailed-documentation.md) for a comprehensive exploration of the rich features and innovative components of this project. This detailed guide unveils the intricate design choices, hidden gems, and technical brilliance that might otherwise go unnoticed, offering you a closer look at the ingenuity behind the system. These insights will enhance your understanding of the project's capabilities and its subtle yet powerful functionalities.
+Dive into my [In-Depth Documentation](./Additional-Documentation.md) for a comprehensive exploration of the rich features and innovative components of this project. This detailed guide unveils the intricate design choices, hidden gems, and technical brilliance that might otherwise go unnoticed, offering you a closer look at the ingenuity behind the system. These insights will enhance your understanding of the project's capabilities and its subtle yet powerful functionalities.
 
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
