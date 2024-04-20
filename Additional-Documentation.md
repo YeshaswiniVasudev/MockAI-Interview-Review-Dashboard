@@ -1,4 +1,4 @@
-# Project X - Additional Documentation
+# Additional Documentation
 
 ## Introduction
 
@@ -51,7 +51,7 @@ This document provides detailed insights into the design and functionality of my
 #### `Header`
 
 - **Home Icon**:
-  - It also has a home icon which navigates to the home page. The home icon changes its color on hover to give appropriate user interaction feedback.
+  - The home icon navigates to the home page. The home icon changes its color on hover to give appropriate user interaction feedback.
 - **Title**:
   - The header features a gradient shade and displays the title of the audio.
 
@@ -61,23 +61,23 @@ This document provides detailed insights into the design and functionality of my
 - **Loop Regions Checkbox**:
   - There is a checkbox which, when selected, plays the selected region in a loop. There is also a note on how to create regions because creating regions is not intuitive.
 - **The Wave**:
-  - The wave is displayed in a gradient color. The color changes for the played part of the audio. There is also a cursor displayed to show the current position of the audio played on the wave. Clicking anywhere on the wave starts the audio from that position.
+  - The wave is displayed in a gradient color. The color changes for the played part of the audio. There is also a cursor displayed to show the current position of the audio played on the wave. Hovering over the wave, gives a cursor with the time displayed over it. Clicking anywhere on the wave starts the audio from that position.
 - **Time Scale**:
-  - Below the wave is a time scale to help users better understand the timing.
+  - Below the wave is a time scale to enhance user experience.
 
 #### `Audio Controls`
-- **Zoom**:
-  - The zoom bar allows users to seamlessly zoom in and out of the wave visual of the audio. It uses a zoom icon instead of a label for a pleasant visual effect.
+- **Zoom slider**:
+  - The zoom slider allows users to seamlessly zoom in and out of the wave visual of the audio. It uses a zoom icon instead of a label for a pleasant visual effect.
 - **Play/Pause, Rewind, Forward**:  
   - The Play/Pause button toggles as required. It also is set back to pause state at the end of the audio. The forward icon helps advance the audio by five seconds, and the rewind icon helps rewind the audio by five seconds.
 - **Playback Speed**:
   - This icon helps to set the playback speed of the audio. It functions as a visually appealing dropdown with appropriate feedback with a tick mark next to the current speed.
-- **Volume**:
-  - The volume bar allows users to seamlessly increase and decrease the volume.
+- **Volume slider**:
+  - The volume slider allows users to seamlessly increase and decrease the volume.
 
 #### `Transcription/Subtitles`
 
-This section renders the subtitles of the audio file. The current line is highlighted with a purple color, making it easier for the user. The current section of the audio is also designed to be positioned at the center of the division.
+This section renders the subtitles of the audio file. The current line is highlighted with a purple color, making it easier for the user to follow. The current section of the audio is also designed to be positioned at the center of the division.
 
 #### `AI Suggestion/Feedback`
 

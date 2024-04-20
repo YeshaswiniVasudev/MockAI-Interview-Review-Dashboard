@@ -1,7 +1,7 @@
 # MockAI-Interview-Review-Dashboard
 
 
-This project involves the design of a front-end mockup for an interactive dashboard dedicated to reviewing audio recordings of interview sessions. The goal is to create a platform that allows users to analyze interview recordings efficiently. The dashboard will leverage a user-friendly interface, enabling users to navigate through the audio recordings with ease.
+This project showcases a mockup for an interactive dashboard dedicated to reviewing audio recordings of interview sessions. The goal is to create a platform that allows users to analyze interview recordings efficiently. The dashboard will leverage a user-friendly interface, enabling users to navigate through the audio recordings with ease.
 
 ## Getting Started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
@@ -10,7 +10,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 Things you need, to install the software.
 
-- Node.js
+- Node.js [18.17 or later]
 - npm
 
 ### Installation
